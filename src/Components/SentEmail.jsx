@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-
+import { sendEmail } from "../Api/EmailApi";
 const SentEmail = () => {
   const [subject, setSubject] = useState("");
   const [to, setTo] = useState("");
@@ -9,6 +9,8 @@ const SentEmail = () => {
   const [bcc, setBcc] = useState("");
   const [attachments, setAttachments] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [body, setBody] = useState("");
+
   const fileInputRef = useRef(null);
 
   const handleFileChange = (e) => {
@@ -23,6 +25,52 @@ const SentEmail = () => {
 
   const removeAttachment = (index) => {
     setAttachments((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleSend = async () => {
+    console.log("Send button clicked");
+    const token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzgwNTgzNDUzLCJpYXQiOjE3NTAzNDM0NTMsImp0aSI6IjAyMTRhOWRhNDQzZDRlM2ZiNGU0MTMzYTFiNTQzMmVlIiwidXNlcl9pZCI6MTMzNX0.FtoAY1oPc6HzW_AaWqvsXnfHOa1umpHlLe93GLYLpok";
+    const mailboxId = "12179U45kdK3CcP";
+
+    const recipients = [];
+
+    if (to) {
+      recipients.push({
+        email: to,
+        recipient_type: "to",
+        name: to.split("@")[0],
+      });
+    }
+    if (cc) {
+      recipients.push({
+        email: cc,
+        recipient_type: "cc",
+        name: cc.split("@")[0],
+      });
+    }
+    if (bcc) {
+      recipients.push({
+        email: bcc,
+        recipient_type: "bcc",
+        name: bcc.split("@")[0],
+      });
+    }
+
+    const emailData = {
+      body: body || "No content",
+      subject: subject || "No Subject",
+      email_type: "sent",
+      recipients,
+      attachments,
+    };
+
+    try {
+      const response = await sendEmail({ token, mailboxId, emailData });
+      console.log("Email sent successfully:", response);
+    } catch (error) {
+      console.error("Failed to send email:", error);
+    }
   };
 
   return (
@@ -127,7 +175,12 @@ const SentEmail = () => {
           onChange={(e) => setSubject(e.target.value)}
         />
       </div>
-
+      <textarea
+        placeholder="Write your text here"
+        className="w-full mt-2 text-[14px] p-2  outline-none h-[150px] resize-none"
+        value={body}
+        onChange={(e) => setBody(e.target.value)}
+      />
       {attachments.length > 0 && (
         <div className="mt-2 mb-2 text-sm text-gray-700 border-t pt-2">
           <p className="font-semibold mb-1">Attachments:</p>
@@ -150,7 +203,10 @@ const SentEmail = () => {
       <div className="flex flex-col gap-2 relative">
         <div className="flex justify-between items-center pt-1 bg-white">
           <div className="flex items-center">
-            <button className="flex items-center justify-between mr-1 h-[33px] w-[95px] pr-2 pl-3 py-2 bg-[#0E57CB] text-white rounded-[200px] font-[500] text-[14px] shadow-md hover:bg-[#1765c1] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1a73e8] transition duration-150">
+            <button
+              onClick={handleSend}
+              className="flex items-center justify-between mr-1 h-[33px] w-[95px] pr-2 pl-3 py-2 bg-[#0E57CB] text-white rounded-[200px] font-[500] text-[14px] shadow-md hover:bg-[#1765c1] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1a73e8] transition duration-150"
+            >
               Send
               <svg
                 width="18"
