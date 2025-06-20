@@ -30,8 +30,8 @@ const SentEmail = () => {
   const handleSend = async () => {
     console.log("Send button clicked");
     const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzgwNTgzNDUzLCJpYXQiOjE3NTAzNDM0NTMsImp0aSI6IjAyMTRhOWRhNDQzZDRlM2ZiNGU0MTMzYTFiNTQzMmVlIiwidXNlcl9pZCI6MTMzNX0.FtoAY1oPc6HzW_AaWqvsXnfHOa1umpHlLe93GLYLpok";
-    const mailboxId = "12179U45kdK3CcP";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzgwNTg5OTAzLCJpYXQiOjE3NTAzNDk5MDMsImp0aSI6IjY1MDdhYzUzMDA0ODQxNDBiOTgyMTJiZWM0ZjVmMjA1IiwidXNlcl9pZCI6MTMzNn0.itRwu0AUG3uXs_D-L-lN1LiZ2Hbm0sG3XWtn18FDFj0";
+    const mailboxId = "1215qHFMLKzSKWb";
 
     const recipients = [];
 
