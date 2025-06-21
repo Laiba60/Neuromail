@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { sendEmail } from "../Api/EmailApi";
+import { toast } from "react-toastify";
 const SentEmail = () => {
   const [subject, setSubject] = useState("");
   const [to, setTo] = useState("");
@@ -68,31 +69,30 @@ const SentEmail = () => {
     try {
       const response = await sendEmail({ token, mailboxId, emailData });
       console.log("Email sent successfully:", response);
+     
+      toast.success("Email sent successfully ");
+  
     } catch (error) {
       console.error("Failed to send email:", error);
+     
+      toast.error(`Error: ${error.message || "Something went wrong"}`);
     }
   };
 
   return (
     <div className="absolute bottom-0 right-3 w-[43vw] hidden md:flex flex-col border border-black justify-between h-[80vh] text-[#192839] rounded-tl-2xl font-sans p-4 rounded-tr-2xl shadow-highRaised bg-white">
       <div className="relative flex-1 flex flex-col overflow-auto">
-        {loading && (
-          <div className="absolute inset-0 bg-white bg-opacity-60 flex items-center justify-center z-20">
-            <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-          </div>
-        )}
-
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center ">
           <h3 className="font-[600] text-[15px]">New Message</h3>
           <button className="text-gray-500 hover:text-gray-700">✖</button>
         </div>
 
-        <p className="text-[10px] text-[#40566D] mt-1">
+        <p className="text-[10px] text-[#40566D] ">
           From LAIBASAEED &lt;LaibaSaeed@neuromail.online&gt;
         </p>
 
-        <div className="relative border-b">
-          <div className="flex items-center text-[14px] gap-2 py-2 mt-3">
+        <div className="relative border-b ">
+          <div className="flex items-center text-[14px] gap-2 py-2">
             <p className="font-[500] text-[14px] flex-nowrap">To</p>
             <input
               name="to"
@@ -170,23 +170,38 @@ const SentEmail = () => {
           type="text"
           name="subject"
           placeholder="Subject"
-          className="w-full border-b text-[16px] py-2 text-[#40566D] outline-none mt-2"
+          className="w-full border-b text-[16px] border-black text-[#40566D] outline-none mt-[2px]"
           value={subject}
           onChange={(e) => setSubject(e.target.value)}
         />
       </div>
-      <textarea
-        placeholder="Write your text here"
-        className="w-full mt-2 text-[14px] p-2  outline-none h-[150px] resize-none"
-        value={body}
-        onChange={(e) => setBody(e.target.value)}
-      />
+     
+     
+      
+      <div className="relative flex-2">
+  <textarea
+    placeholder=""
+    className="w-full text-[14px] outline-none resize-none max-h-[200px] min-h-[120px] overflow-auto"
+    value={body}
+    onChange={(e) => setBody(e.target.value)}
+  />
+
+        {loading && (
+          <div className="absolute inset-0 bg-white bg-opacity-60 flex items-center justify-center z-10">
+            <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        )}
+      </div>
+
       {attachments.length > 0 && (
-        <div className="mt-2 mb-2 text-sm text-gray-700 border-t pt-2">
-          <p className="font-semibold mb-1">Attachments:</p>
-          <ul className="list-disc ml-5 space-y-1">
+        <div className="mt-2 mb-2 text-sm text-blue-700 ">
+         
+          <ul className="list-disc ml-5 space-y-3 mt-[4px]">
             {attachments.map((file, index) => (
-              <li key={index} className="flex items-center justify-between">
+              <li
+                key={index}
+                className="flex items-center justify-between border border-gray-300 bg-gray-300"
+              >
                 <span>{file.name}</span>
                 <button
                   onClick={() => removeAttachment(index)}
@@ -235,13 +250,24 @@ const SentEmail = () => {
               style={{ display: "none" }}
             />
             <div style={{ position: "relative", display: "inline-block" }}>
-              <button
+              <span
+                class="btn-small-circle"
                 onClick={() => fileInputRef.current.click()}
-                className="ml-2 rounded-full bg-gray-200 hover:bg-gray-300"
-                title="Add Attachment"
               >
-                📎
-              </button>
+                <svg
+                  width="9"
+                  height="14"
+                  viewBox="0 0 9 14"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-[21px] h-[21px]"
+                >
+                  <path
+                    d="M7.94317 2.66995L8.02903 9.80602C8.03955 10.6802 7.68359 11.5226 7.03945 12.1478C6.39531 12.7731 5.51577 13.1299 4.5943 13.1399C3.67284 13.1499 2.78493 12.8122 2.12592 12.2011C1.46691 11.59 1.09077 10.7555 1.08025 9.88128L1.00018 3.22664C0.992614 2.64332 1.22961 2.08103 1.65902 1.66349C2.08844 1.24595 2.6751 1.00734 3.28995 1.00017C3.9048 0.992993 4.49746 1.21784 4.93757 1.62524C5.37768 2.03264 5.62918 2.58922 5.63674 3.17254L5.70872 9.83503C5.71223 10.1264 5.59358 10.4072 5.37886 10.6156C5.16415 10.824 4.87097 10.943 4.56381 10.9463C4.25666 10.9497 3.96069 10.8371 3.74102 10.6334C3.52135 10.4297 3.39597 10.1515 3.39246 9.86012L3.31728 3.27144"
+                    stroke="#4A4A4A"
+                  ></path>
+                </svg>
+              </span>
             </div>
           </div>
           <div></div>
