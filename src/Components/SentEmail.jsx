@@ -11,51 +11,92 @@ const SentEmail = () => {
   const [attachments, setAttachments] = useState([]);
   const [loading, setLoading] = useState(false);
   const [body, setBody] = useState("");
+  const [toList, setToList] = useState([]);
+  const [toInput, setToInput] = useState("");
 
   const fileInputRef = useRef(null);
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
+
+    if (files.length === 0) return;
+
+    const allowedTypes = [
+      "application/pdf",
+      "application/msword",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ];
+
+    const validFiles = files.filter((file) => allowedTypes.includes(file.type));
+
+    if (validFiles.length !== files.length) {
+      toast.error("Only PDF or Word documents are allowed");
+      return;
+    }
+
     setLoading(true);
 
-    setTimeout(() => {
-      setAttachments((prev) => [...prev, ...files]);
-      setLoading(false);
-    }, 2000);
+    setAttachments((prev) => [...prev, ...validFiles]);
+    setLoading(false);
   };
 
   const removeAttachment = (index) => {
     setAttachments((prev) => prev.filter((_, i) => i !== index));
   };
-
   const handleSend = async () => {
-    console.log("Send button clicked");
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzgwNTg5OTAzLCJpYXQiOjE3NTAzNDk5MDMsImp0aSI6IjY1MDdhYzUzMDA0ODQxNDBiOTgyMTJiZWM0ZjVmMjA1IiwidXNlcl9pZCI6MTMzNn0.itRwu0AUG3uXs_D-L-lN1LiZ2Hbm0sG3XWtn18FDFj0";
-    const mailboxId = "1215qHFMLKzSKWb";
+    if (toInput.trim()) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (emailRegex.test(toInput.trim())) {
+        toList.push(toInput.trim());
+        setToInput("");
+      } else {
+        toast.error("Invalid To email address");
+        return;
+      }
+    }
 
+    const token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzgwNTg5OTAzLCJpYXQiOjE3NTAzNDk5MDMsImp0aSI6IjY1MDdhYzUzMDA0ODQxNDBiOTgyMTJiZWM0ZjVmMjA1IiwidXNlcl9pZCI6MTMzNn0.itRwu0AUG3uXs_D-L-lN1LiZ2Hbm0sG3XWtn18FDFj0"; // Don't expose this in productio";
+    const mailboxId = "1215qHFMLKzSKWb";
     const recipients = [];
 
-    if (to) {
+    toList.forEach((email) => {
       recipients.push({
-        email: to,
+        email,
         recipient_type: "to",
-        name: to.split("@")[0],
+        name: email.split("@")[0],
+      });
+    });
+
+    if (cc && cc.length > 0) {
+      cc.split(",").forEach((email) => {
+        const trimmed = email.trim();
+        if (trimmed) {
+          recipients.push({
+            email: trimmed,
+            recipient_type: "cc",
+            name: trimmed.split("@")[0],
+          });
+        }
       });
     }
-    if (cc) {
-      recipients.push({
-        email: cc,
-        recipient_type: "cc",
-        name: cc.split("@")[0],
+
+    if (bcc && bcc.length > 0) {
+      bcc.split(",").forEach((email) => {
+        const trimmed = email.trim();
+        if (trimmed) {
+          recipients.push({
+            email: trimmed,
+            recipient_type: "bcc",
+            name: trimmed.split("@")[0],
+          });
+        }
       });
     }
-    if (bcc) {
-      recipients.push({
-        email: bcc,
-        recipient_type: "bcc",
-        name: bcc.split("@")[0],
-      });
+
+    if (recipients.length === 0) {
+      toast.error("At least one recipient is required.");
+      return;
     }
 
     const emailData = {
@@ -68,15 +109,28 @@ const SentEmail = () => {
 
     try {
       const response = await sendEmail({ token, mailboxId, emailData });
-      console.log("Email sent successfully:", response);
-     
-      toast.success("Email sent successfully ");
-  
+
+      toast.success("Email sent successfully");
     } catch (error) {
-      console.error("Failed to send email:", error);
-     
       toast.error(`Error: ${error.message || "Something went wrong"}`);
     }
+  };
+
+  const handleToKeyDown = (e) => {
+    if (e.key === "Enter" && toInput.trim()) {
+      e.preventDefault();
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (emailRegex.test(toInput.trim())) {
+        setToList([...toList, toInput.trim()]);
+        setToInput("");
+      } else {
+        toast.error("Invalid email address");
+      }
+    }
+  };
+  const removeToEmail = (index) => {
+    setToList((prev) => prev.filter((_, i) => i !== index));
   };
 
   return (
@@ -94,13 +148,40 @@ const SentEmail = () => {
         <div className="relative border-b ">
           <div className="flex items-center text-[14px] gap-2 py-2">
             <p className="font-[500] text-[14px] flex-nowrap">To</p>
-            <input
+            <div className="flex flex-wrap gap-1 w-full px-2 py-1">
+              {toList.map((email, index) => (
+                <span
+                  key={index}
+                  className="flex items-center gap-1 bg-gray-200 text-sm px-2 py-[2px] rounded-full"
+                >
+                  <span className="bg-green-700 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs uppercase">
+                    {email[0]}
+                  </span>
+                  {email.split("@")[0]}
+                  <button
+                    onClick={() => removeToEmail(index)}
+                    className="text-gray-600 hover:gray-300 text-xs"
+                  >
+                    ✕
+                  </button>
+                </span>
+              ))}
+              <input
+                type="text"
+                value={toInput}
+                onChange={(e) => setToInput(e.target.value)}
+                onKeyDown={handleToKeyDown}
+                className="flex-grow outline-none text-[14px] min-w-[150px]"
+                placeholder=""
+              />
+            </div>
+            {/* <input
               name="to"
               type="email"
               className="w-full outline-none text-[14px]"
               value={to}
               onChange={(e) => setTo(e.target.value)}
-            />
+            /> */}
           </div>
           <p className="text-[14px] text-[#747789] absolute right-1 bottom-1">
             {!ccVisible && (
@@ -175,16 +256,14 @@ const SentEmail = () => {
           onChange={(e) => setSubject(e.target.value)}
         />
       </div>
-     
-     
-      
+
       <div className="relative flex-2">
-  <textarea
-    placeholder=""
-    className="w-full text-[14px] outline-none resize-none max-h-[200px] min-h-[120px] overflow-auto"
-    value={body}
-    onChange={(e) => setBody(e.target.value)}
-  />
+        <textarea
+          placeholder=""
+          className="w-full text-[14px] outline-none resize-none max-h-[200px] min-h-[120px] overflow-auto"
+          value={body}
+          onChange={(e) => setBody(e.target.value)}
+        />
 
         {loading && (
           <div className="absolute inset-0 bg-white bg-opacity-60 flex items-center justify-center z-10">
@@ -195,7 +274,6 @@ const SentEmail = () => {
 
       {attachments.length > 0 && (
         <div className="mt-2 mb-2 text-sm text-blue-700 ">
-         
           <ul className="list-disc ml-5 space-y-3 mt-[4px]">
             {attachments.map((file, index) => (
               <li
@@ -251,7 +329,7 @@ const SentEmail = () => {
             />
             <div style={{ position: "relative", display: "inline-block" }}>
               <span
-                class="btn-small-circle"
+                className="btn-small-circle"
                 onClick={() => fileInputRef.current.click()}
               >
                 <svg
@@ -260,7 +338,7 @@ const SentEmail = () => {
                   viewBox="0 0 9 14"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
-                  class="w-[21px] h-[21px]"
+                  className="w-[21px] h-[21px]"
                 >
                   <path
                     d="M7.94317 2.66995L8.02903 9.80602C8.03955 10.6802 7.68359 11.5226 7.03945 12.1478C6.39531 12.7731 5.51577 13.1299 4.5943 13.1399C3.67284 13.1499 2.78493 12.8122 2.12592 12.2011C1.46691 11.59 1.09077 10.7555 1.08025 9.88128L1.00018 3.22664C0.992614 2.64332 1.22961 2.08103 1.65902 1.66349C2.08844 1.24595 2.6751 1.00734 3.28995 1.00017C3.9048 0.992993 4.49746 1.21784 4.93757 1.62524C5.37768 2.03264 5.62918 2.58922 5.63674 3.17254L5.70872 9.83503C5.71223 10.1264 5.59358 10.4072 5.37886 10.6156C5.16415 10.824 4.87097 10.943 4.56381 10.9463C4.25666 10.9497 3.96069 10.8371 3.74102 10.6334C3.52135 10.4297 3.39597 10.1515 3.39246 9.86012L3.31728 3.27144"
