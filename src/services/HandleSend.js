@@ -46,7 +46,7 @@ export const handleSend = async ({
   }
   const plainTextBody = body.replace(/<[^>]*>/g, "").trim();
 
-  if (!plainTextBody || attachments.length === 0) {
+  if (plainTextBody === "") {
     toast.error(
       "Cannot send an empty email. Please write a message or attach a file."
     );
