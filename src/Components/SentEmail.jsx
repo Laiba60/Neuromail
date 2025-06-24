@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { useEmailFormLogic } from "../utils/logic";
 import { handleSend } from "../services/HandleSend";
 
-const SentEmail = () => {
+const SentEmail = ({ setShowEmailsent }) => {
   const {
     inputValue,
     setInputValue,
@@ -32,11 +32,16 @@ const SentEmail = () => {
   const toRecipients = recipients.filter((r) => r.recipient_type === "to");
 
   return (
-    <div className="absolute bottom-0 right-3 w-[43vw] hidden md:flex flex-col border border-black justify-between h-[80vh] text-[#192839] rounded-tl-2xl font-sans p-4 rounded-tr-2xl shadow-highRaised bg-white">
+    <div className=" fixed z-90  bottom-0 right-3 w-[43vw] hidden md:flex flex-col rounded-[10px] justify-between h-[80vh] text-[#192839] rounded-tl-2xl font-sans p-4 rounded-tr-2xl shadow-highRaised bg-white">
       <div className="relative flex-1 flex flex-col overflow-auto">
         <div className="flex justify-between items-center">
           <h3 className="font-[600] text-[15px]">New Message</h3>
-          <button className="text-gray-500 hover:text-gray-700">✖</button>
+          <button
+            onClick={() => setShowEmailsent(false)}
+            className="text-gray-500 hover:text-gray-700"
+          >
+            ✖
+          </button>
         </div>
 
         <p className="text-[10px] text-[#40566D]">
