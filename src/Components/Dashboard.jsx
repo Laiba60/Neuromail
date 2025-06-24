@@ -4,7 +4,7 @@ const Dashboard = () => {
   const [checked, setChecked] = useState(false);
   const [search, setSearch] = useState("");
   return (
-    <div id="root">
+    <div>
       <div className="Toastify"></div>
       <div className="flex w-[100vw] relative bg-[#f6f8fc] h-dvh">
         <div className="absolute text-center w-full z-50 top-1"></div>
@@ -310,7 +310,7 @@ const Dashboard = () => {
                 ></path>
               </svg>
               <input
-                className="font-sans mq1100:w-[400px] h-[36px]  pl-9 pr-3 rounded-[4px] outline-none bg-[#6C849D1F]  placeholder:text-[#6C849D52] text-[#6c849d] text-[12px] "
+                className="font-sans mq1100:w-[400px] w-[450px] h-[36px]  pl-9 pr-3 rounded-[4px] outline-none bg-[#6C849D1F]  placeholder:text-[#6C849D52] text-[#6c849d] text-[12px] "
                 placeholder="Search messages"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
@@ -1793,6 +1793,411 @@ const Dashboard = () => {
               <p className=" w-[70px] text-end font-sans text-[12px] mq1100:text-[14px] leading-[20px]">
                 09:58 AM
               </p>
+            </div>
+          </div>
+
+          <div className="mobile-view-table w-full flex flex-col items-center mt-3 md:hidden">
+            <div className="flex justify-between items-center py-1 pl-4 pr-2 w-[92vw] h-[49px] mb-4 rounded-[99px] bg-[white] ">
+              <div className="flex items-center">
+                <span>
+                  <img src="/bar.svg" />
+                </span>
+                <input
+                  className="font-sans w-[200px] h-[36px] ml-3  outline-none placeholder:text-[#6C849D52] text-[#647b93] text-[12px] "
+                  placeholder="Search in neuromail"
+                  value=""
+                />
+              </div>
+              <div className="flex items-center relative gap-3">
+                <span className="cursor-pointer">
+                  <img className="w-[17px] h-[17px]" src="/icons.svg" />
+                </span>
+                <div className=" h-[35px] w-[35px] rounded-full cursor-pointer overflow-hidden">
+                  <p className="bg-[#EB417A] w-full h-full text-[white] flex justify-center items-center text-[17px] font-bold font-sans">
+                    Z
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className=" w-[96%] font-sans px-5 py-4 mb-3 rounded-xl bg-white desktop-view-table hidden md:flex justify-between items-center">
+              <div className="flex items-center gap-3 relative">
+                <input
+                  id="checkbox"
+                  className="w-5 h-5 appearance-none cursor-pointer rounded-md border-[2px] border-[#B1C1D2] focus:ring-blue-500 checked:bg-blue-500 checked:border-blue-500 relative"
+                  type="checkbox"
+                />
+                <label for="checkbox" className="text-[14px]">
+                  Inbox
+                </label>
+              </div>
+              <div className="flex gap-2 items-center">
+                <p className="font-sans text-[14px] leading-[18px] text-[#000000]">
+                  1-10 of 25
+                </p>
+                <button className="btn-circle-sm cursor-pointer disabled:cursor-not-allowed">
+                  <svg
+                    width="8"
+                    height="13"
+                    viewBox="0 0 8 13"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="w-3 h-3"
+                  >
+                    <path
+                      d="M7.13395 11.91L6.07295 12.97L0.29395 7.193C0.200796 7.10043 0.126867 6.99036 0.0764193 6.86911C0.0259713 6.74786 0 6.61783 0 6.4865C0 6.35517 0.0259713 6.22514 0.0764193 6.10389C0.126867 5.98264 0.200796 5.87257 0.29395 5.78L6.07295 0L7.13295 1.06L1.70895 6.485L7.13395 11.91Z"
+                      fill="#747474"
+                    ></path>
+                  </svg>
+                </button>
+                <button className="btn-circle-sm cursor-pointer disabled:cursor-not-allowed">
+                  <svg
+                    width="8"
+                    height="13"
+                    viewBox="0 0 8 13"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-3 h-3"
+                  >
+                    <path
+                      d="M-0.000161171 1.05997L1.06084 -2.86102e-05L6.83984 5.77697C6.93299 5.86954 7.00692 5.97961 7.05737 6.10086C7.10782 6.22212 7.13379 6.35214 7.13379 6.48347C7.13379 6.6148 7.10782 6.74483 7.05737 6.86608C7.00692 6.98733 6.93299 7.0974 6.83984 7.18997L1.06084 12.97L0.000838757 11.91L5.42484 6.48497L-0.000161171 1.05997Z"
+                      fill="black"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+              <div className="text-[14px] flex items-center gap-3 text-[#40566D]">
+                <p className="bg-[#305EFF17] px-1 cursor-pointer rounded-md flex justify-center items-center font-[600]">
+                  All
+                </p>
+                <p className=" px-1 cursor-pointer rounded-md flex justify-center items-center font-[600]">
+                  Read
+                </p>
+                <p className=" px-1 cursor-pointer rounded-md flex justify-center items-center font-[600]">
+                  Unread
+                </p>
+                <p className=" px-1 cursor-pointer rounded-md flex justify-center items-center font-[600]">
+                  Has File
+                </p>
+              </div>
+            </div>
+            <div className="h-full w-full overflow-auto flex flex-col items-center gap-1">
+              <div className="md:w-[96%] cursor-pointer w-[92vw] my-[1px] z-0 px-1 h-[86px] md:h-[60px] rounded-[12px] md:rounded-xl flex justify-between items-center bg-white font-[600] text-black">
+                <div className=" w-[96%] px-3 h-[60px] rounded-xl desktop-view-table hidden md:flex justify-between items-center">
+                  <div className="relative overflow-hidden">
+                    <input
+                      className=" h-[28px] w-[28px] rounded-[8px] bg-[#D9D9D9] cursor-pointer appearance-none  focus:ring-black checked:bg-[#0000ff00] border font-sans text-[20px] checked:border-black flex items-center justify-center "
+                      type="checkbox"
+                    />
+                  </div>
+                  <div className="grid grid-cols-[10%_55%_35%] items-center w-[20vw] pr-2 gap-3 overflow-hidden">
+                    <span className="cursor-pointer z-10">
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M9.15327 2.33977L10.3266 4.68643C10.4866 5.0131 10.9133 5.32643 11.2733 5.38643L13.3999 5.73977C14.7599 5.96643 15.0799 6.9531 14.0999 7.92643L12.4466 9.57977C12.1666 9.85977 12.0133 10.3998 12.0999 10.7864L12.5733 12.8331C12.9466 14.4531 12.0866 15.0798 10.6533 14.2331L8.65994 13.0531C8.29994 12.8398 7.70661 12.8398 7.33994 13.0531L5.34661 14.2331C3.91994 15.0798 3.05327 14.4464 3.42661 12.8331L3.89994 10.7864C3.98661 10.3998 3.83327 9.85977 3.55327 9.57977L1.89994 7.92643C0.926606 6.9531 1.23994 5.96643 2.59994 5.73977L4.72661 5.38643C5.07994 5.32643 5.50661 5.0131 5.66661 4.68643L6.83994 2.33977C7.47994 1.06643 8.51994 1.06643 9.15327 2.33977Z"
+                          stroke="#6C849D"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        ></path>
+                      </svg>
+                    </span>
+                    <div className="font-sans text-[12px] mq1100:text-[14px] leading-[20px] truncate"></div>
+                    <div className="text-center capitalize bg-[#305EFF17] overflow-hidden flex items-center justify-center min-w-[40px] rounded-md text-[#305EFF] text-[12px] font-[600] font-sans  max-w-[50px] max-h-[18px]">
+                      inbox
+                    </div>
+                  </div>
+                </div>
+                <p className="flex-[0.7] overflow-hidden whitespace-nowrap h-5 flex justify-start items-start font-sans text-[12px] mq1100:text-[14px] leading-[20px]">
+                  Undelivered Mail Returned to Sender-<p>jjjjjj</p>
+                </p>
+                <p className=" w-[70px] text-end font-sans text-[12px] mq1100:text-[14px] leading-[20px]">
+                  09:58 AM
+                </p>
+              </div>
+              <div className="mobile-view-table w-[92vw] h-[86px] overflow-hidden px-1 rounded-[12px] flex items-center  md:hidden font-sans">
+                <span className="flex-[0.1]">
+                  <svg
+                    width="39"
+                    height="39"
+                    viewBox="0 0 39 39"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="19.5"
+                      cy="19.5"
+                      r="19.5"
+                      fill="#305EFF"
+                    ></circle>
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M8.31152 15.0702C8.31152 13.456 9.62007 12.1475 11.2342 12.1475H27.3092C28.9234 12.1475 30.2319 13.456 30.2319 15.0702V23.8383C30.2319 25.4525 28.9234 26.761 27.3092 26.761H11.2342C9.62007 26.761 8.31152 25.4525 8.31152 23.8383V15.0702ZM15.6173 21.6464V15.1603H18.2547V16.7938C18.7312 15.8239 19.548 14.9901 20.9773 14.9901C22.5258 14.9901 23.819 15.943 23.819 18.1891V23.6683H21.0964V18.5635C21.0964 17.6957 20.637 17.2192 19.7862 17.2192C18.8843 17.2192 18.3398 17.7467 18.3398 18.9889V23.6683H17.4442V24.5691H14.5215V21.6464H15.6173Z"
+                      fill="#F8FAFC"
+                    ></path>
+                  </svg>
+                </span>
+                <div className="flex flex-col w-full py-2 h-full items-start justify-center  ml-2">
+                  <p className="font-[600] text-[22px] h-[42px] whitespace-nowrap  w-[50vw]  overflow-hidden"></p>
+                  <p className="text-[14px] flex w-[50vw] h-[34px] overflow-hidden whitespace-nowrap">
+                    Undelivered Mail Returned to Sender-<p>jjjjjj</p>
+                  </p>
+                  <p></p>
+                </div>
+                <div className="w-full flex flex-col justify-end items-end gap-2">
+                  <span className="cursor-pointer z-10 mt-2">
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.15327 2.33977L10.3266 4.68643C10.4866 5.0131 10.9133 5.32643 11.2733 5.38643L13.3999 5.73977C14.7599 5.96643 15.0799 6.9531 14.0999 7.92643L12.4466 9.57977C12.1666 9.85977 12.0133 10.3998 12.0999 10.7864L12.5733 12.8331C12.9466 14.4531 12.0866 15.0798 10.6533 14.2331L8.65994 13.0531C8.29994 12.8398 7.70661 12.8398 7.33994 13.0531L5.34661 14.2331C3.91994 15.0798 3.05327 14.4464 3.42661 12.8331L3.89994 10.7864C3.98661 10.3998 3.83327 9.85977 3.55327 9.57977L1.89994 7.92643C0.926606 6.9531 1.23994 5.96643 2.59994 5.73977L4.72661 5.38643C5.07994 5.32643 5.50661 5.0131 5.66661 4.68643L6.83994 2.33977C7.47994 1.06643 8.51994 1.06643 9.15327 2.33977Z"
+                        stroke="#6C849D"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                    </svg>
+                  </span>
+                  <p className="text-[14px]">09:58 AM</p>
+                </div>
+              </div>
+            </div>
+            <div className="md:w-[96%] cursor-pointer w-[92vw] my-[1px] z-0 px-1 h-[86px] md:h-[60px] rounded-[12px] md:rounded-xl flex justify-between items-center bg-white font-[600] text-black">
+              <div className=" w-[96%] px-3 h-[60px] rounded-xl desktop-view-table hidden md:flex justify-between items-center">
+                <div className="flex items-center flex-[0.4] gap-3">
+                  <div className="relative overflow-hidden">
+                    <input
+                      className=" h-[28px] w-[28px] rounded-[8px] bg-[#D9D9D9] cursor-pointer appearance-none  focus:ring-black checked:bg-[#0000ff00] border font-sans text-[20px] checked:border-black flex items-center justify-center "
+                      type="checkbox"
+                    />
+                  </div>
+                  <div className="grid grid-cols-[10%_55%_35%] items-center w-[20vw] pr-2 gap-3 overflow-hidden">
+                    <span className="cursor-pointer z-10">
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M9.15327 2.33977L10.3266 4.68643C10.4866 5.0131 10.9133 5.32643 11.2733 5.38643L13.3999 5.73977C14.7599 5.96643 15.0799 6.9531 14.0999 7.92643L12.4466 9.57977C12.1666 9.85977 12.0133 10.3998 12.0999 10.7864L12.5733 12.8331C12.9466 14.4531 12.0866 15.0798 10.6533 14.2331L8.65994 13.0531C8.29994 12.8398 7.70661 12.8398 7.33994 13.0531L5.34661 14.2331C3.91994 15.0798 3.05327 14.4464 3.42661 12.8331L3.89994 10.7864C3.98661 10.3998 3.83327 9.85977 3.55327 9.57977L1.89994 7.92643C0.926606 6.9531 1.23994 5.96643 2.59994 5.73977L4.72661 5.38643C5.07994 5.32643 5.50661 5.0131 5.66661 4.68643L6.83994 2.33977C7.47994 1.06643 8.51994 1.06643 9.15327 2.33977Z"
+                          stroke="#6C849D"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        ></path>
+                      </svg>
+                    </span>
+                    <div className="font-sans text-[12px] mq1100:text-[14px] leading-[20px] truncate"></div>
+                    <div className="text-center capitalize bg-[#305EFF17] overflow-hidden flex items-center justify-center min-w-[40px] rounded-md text-[#305EFF] text-[12px] font-[600] font-sans  max-w-[50px] max-h-[18px]">
+                      inbox
+                    </div>
+                  </div>
+                </div>
+                <p className="flex-[0.7] overflow-hidden whitespace-nowrap h-5 flex justify-start items-start font-sans text-[12px] mq1100:text-[14px] leading-[20px]">
+                  Undelivered Mail Returned to Sender-
+                  <p>this is the body of th email</p>
+                </p>
+                <p className=" w-[70px] text-end font-sans text-[12px] mq1100:text-[14px] leading-[20px]">
+                  09:58 AM
+                </p>
+              </div>
+              <div className="mobile-view-table w-[92vw] h-[86px] overflow-hidden px-1 rounded-[12px] flex items-center  md:hidden font-sans">
+                <span class="flex-[0.1]">
+                  <svg
+                    width="39"
+                    height="39"
+                    viewBox="0 0 39 39"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="19.5"
+                      cy="19.5"
+                      r="19.5"
+                      fill="#305EFF"
+                    ></circle>
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M8.31152 15.0702C8.31152 13.456 9.62007 12.1475 11.2342 12.1475H27.3092C28.9234 12.1475 30.2319 13.456 30.2319 15.0702V23.8383C30.2319 25.4525 28.9234 26.761 27.3092 26.761H11.2342C9.62007 26.761 8.31152 25.4525 8.31152 23.8383V15.0702ZM15.6173 21.6464V15.1603H18.2547V16.7938C18.7312 15.8239 19.548 14.9901 20.9773 14.9901C22.5258 14.9901 23.819 15.943 23.819 18.1891V23.6683H21.0964V18.5635C21.0964 17.6957 20.637 17.2192 19.7862 17.2192C18.8843 17.2192 18.3398 17.7467 18.3398 18.9889V23.6683H17.4442V24.5691H14.5215V21.6464H15.6173Z"
+                      fill="#F8FAFC"
+                    ></path>
+                  </svg>
+                </span>
+                <div className="flex flex-col w-full py-2 h-full items-start justify-center  ml-2">
+                  <p class="font-[600] text-[22px] h-[42px] whitespace-nowrap  w-[50vw]  overflow-hidden"></p>
+                  <p className="text-[14px] flex w-[50vw] h-[34px] overflow-hidden whitespace-nowrap">
+                    Undelivered Mail Returned to Sender-
+                    <p>this is the body of th email</p>
+                  </p>
+                  <p></p>
+                </div>
+                <div className="w-full flex flex-col justify-end items-end gap-2">
+                  <span class="cursor-pointer z-10 mt-2">
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.15327 2.33977L10.3266 4.68643C10.4866 5.0131 10.9133 5.32643 11.2733 5.38643L13.3999 5.73977C14.7599 5.96643 15.0799 6.9531 14.0999 7.92643L12.4466 9.57977C12.1666 9.85977 12.0133 10.3998 12.0999 10.7864L12.5733 12.8331C12.9466 14.4531 12.0866 15.0798 10.6533 14.2331L8.65994 13.0531C8.29994 12.8398 7.70661 12.8398 7.33994 13.0531L5.34661 14.2331C3.91994 15.0798 3.05327 14.4464 3.42661 12.8331L3.89994 10.7864C3.98661 10.3998 3.83327 9.85977 3.55327 9.57977L1.89994 7.92643C0.926606 6.9531 1.23994 5.96643 2.59994 5.73977L4.72661 5.38643C5.07994 5.32643 5.50661 5.0131 5.66661 4.68643L6.83994 2.33977C7.47994 1.06643 8.51994 1.06643 9.15327 2.33977Z"
+                        stroke="#6C849D"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      ></path>
+                    </svg>
+                  </span>
+                  <p className="text-[14px]">09:58 AM</p>
+                </div>
+              </div>
+            </div>
+            <div className="md:w-[96%] cursor-pointer w-[92vw] my-[1px] z-0 px-1 h-[86px] md:h-[60px] rounded-[12px] md:rounded-xl flex justify-between items-center bg-white font-[600] text-black">
+              <div className=" w-[96%] px-3 h-[60px] rounded-xl desktop-view-table hidden md:flex justify-between items-center">
+                <div className="flex items-center flex-[0.4] gap-3">
+                  <div className="relative overflow-hidden">
+                    <input
+                      className=" h-[28px] w-[28px] rounded-[8px] bg-[#D9D9D9] cursor-pointer appearance-none  focus:ring-black checked:bg-[#0000ff00] border font-sans text-[20px] checked:border-black flex items-center justify-center "
+                      type="checkbox"
+                    />
+                  </div>
+                  <div className="grid grid-cols-[10%_55%_35%] items-center w-[20vw] pr-2 gap-3 overflow-hidden">
+                    <span className="cursor-pointer z-10">
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M9.15327 2.33977L10.3266 4.68643C10.4866 5.0131 10.9133 5.32643 11.2733 5.38643L13.3999 5.73977C14.7599 5.96643 15.0799 6.9531 14.0999 7.92643L12.4466 9.57977C12.1666 9.85977 12.0133 10.3998 12.0999 10.7864L12.5733 12.8331C12.9466 14.4531 12.0866 15.0798 10.6533 14.2331L8.65994 13.0531C8.29994 12.8398 7.70661 12.8398 7.33994 13.0531L5.34661 14.2331C3.91994 15.0798 3.05327 14.4464 3.42661 12.8331L3.89994 10.7864C3.98661 10.3998 3.83327 9.85977 3.55327 9.57977L1.89994 7.92643C0.926606 6.9531 1.23994 5.96643 2.59994 5.73977L4.72661 5.38643C5.07994 5.32643 5.50661 5.0131 5.66661 4.68643L6.83994 2.33977C7.47994 1.06643 8.51994 1.06643 9.15327 2.33977Z"
+                          stroke="#6C849D"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        ></path>
+                      </svg>
+                    </span>
+                    <div className="font-sans text-[12px] mq1100:text-[14px] leading-[20px] truncate"></div>
+                    <div className="text-center capitalize bg-[#305EFF17] overflow-hidden flex items-center justify-center min-w-[40px] rounded-md text-[#305EFF] text-[12px] font-[600] font-sans  max-w-[50px] max-h-[18px]">
+                      inbox
+                    </div>
+                  </div>
+                </div>
+                <p className="flex-[0.7] overflow-hidden whitespace-nowrap h-5 flex justify-start items-start font-sans text-[12px] mq1100:text-[14px] leading-[20px]">
+                  Undelivered Mail Returned to Sender-No Content Available
+                </p>
+                <p className=" w-[70px] text-end font-sans text-[12px] mq1100:text-[14px] leading-[20px]">
+                  09:58 AM
+                </p>
+              </div>
+              <div className="mobile-view-table w-[92vw] h-[86px] overflow-hidden px-1 rounded-[12px] flex items-center  md:hidden font-sans">
+                <span className="flex-[0.1]">
+                  <svg
+                    width="39"
+                    height="39"
+                    viewBox="0 0 39 39"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="19.5"
+                      cy="19.5"
+                      r="19.5"
+                      fill="#305EFF"
+                    ></circle>
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M8.31152 15.0702C8.31152 13.456 9.62007 12.1475 11.2342 12.1475H27.3092C28.9234 12.1475 30.2319 13.456 30.2319 15.0702V23.8383C30.2319 25.4525 28.9234 26.761 27.3092 26.761H11.2342C9.62007 26.761 8.31152 25.4525 8.31152 23.8383V15.0702ZM15.6173 21.6464V15.1603H18.2547V16.7938C18.7312 15.8239 19.548 14.9901 20.9773 14.9901C22.5258 14.9901 23.819 15.943 23.819 18.1891V23.6683H21.0964V18.5635C21.0964 17.6957 20.637 17.2192 19.7862 17.2192C18.8843 17.2192 18.3398 17.7467 18.3398 18.9889V23.6683H17.4442V24.5691H14.5215V21.6464H15.6173Z"
+                      fill="#F8FAFC"
+                    ></path>
+                  </svg>
+                </span>
+                <div className="flex flex-col w-full py-2 h-full items-start justify-center  ml-2">
+                  <p className="font-[600] text-[22px] h-[42px] whitespace-nowrap  w-[50vw]  overflow-hidden"></p>
+                  <p className="text-[14px] flex w-[50vw] h-[34px] overflow-hidden whitespace-nowrap">
+                    Undelivered Mail Returned to Sender-No Content Available
+                  </p>
+                  <p></p>
+                </div>
+                <div className="w-full flex flex-col justify-end items-end gap-2">
+                  <span className="cursor-pointer z-10 mt-2">
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.15327 2.33977L10.3266 4.68643C10.4866 5.0131 10.9133 5.32643 11.2733 5.38643L13.3999 5.73977C14.7599 5.96643 15.0799 6.9531 14.0999 7.92643L12.4466 9.57977C12.1666 9.85977 12.0133 10.3998 12.0999 10.7864L12.5733 12.8331C12.9466 14.4531 12.0866 15.0798 10.6533 14.2331L8.65994 13.0531C8.29994 12.8398 7.70661 12.8398 7.33994 13.0531L5.34661 14.2331C3.91994 15.0798 3.05327 14.4464 3.42661 12.8331L3.89994 10.7864C3.98661 10.3998 3.83327 9.85977 3.55327 9.57977L1.89994 7.92643C0.926606 6.9531 1.23994 5.96643 2.59994 5.73977L4.72661 5.38643C5.07994 5.32643 5.50661 5.0131 5.66661 4.68643L6.83994 2.33977C7.47994 1.06643 8.51994 1.06643 9.15327 2.33977Z"
+                        stroke="#6C849D"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      ></path>
+                    </svg>
+                  </span>
+                  <p className="text-[14px]">09:58 AM</p>
+                </div>
+              </div>
+            </div>
+            <div className="md:w-[96%] cursor-pointer w-[92vw] my-[1px] z-0 px-1 h-[86px] md:h-[60px] rounded-[12px] md:rounded-xl flex justify-between items-center bg-[#F1F5FA] font-sans font-[500] text-[#383838]">
+              <div className=" w-[96%] px-3 h-[60px] rounded-xl desktop-view-table hidden md:flex justify-between items-center">
+                <div className="flex items-center flex-[0.4] gap-3">
+                  <div class="relative overflow-hidden">
+                    <input
+                      className=" h-[28px] w-[28px] rounded-[8px] bg-[#D9D9D9] cursor-pointer appearance-none  focus:ring-black checked:bg-[#0000ff00] border font-sans text-[20px] checked:border-black flex items-center justify-center "
+                      type="checkbox"
+                    />
+                  </div>
+                  <div classNameName="grid grid-cols-[10%_55%_35%] items-center w-[20vw] pr-2 gap-3 overflow-hidden">
+                    <span className="cursor-pointer z-10">
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M9.15327 2.33977L10.3266 4.68643C10.4866 5.0131 10.9133 5.32643 11.2733 5.38643L13.3999 5.73977C14.7599 5.96643 15.0799 6.9531 14.0999 7.92643L12.4466 9.57977C12.1666 9.85977 12.0133 10.3998 12.0999 10.7864L12.5733 12.8331C12.9466 14.4531 12.0866 15.0798 10.6533 14.2331L8.65994 13.0531C8.29994 12.8398 7.70661 12.8398 7.33994 13.0531L5.34661 14.2331C3.91994 15.0798 3.05327 14.4464 3.42661 12.8331L3.89994 10.7864C3.98661 10.3998 3.83327 9.85977 3.55327 9.57977L1.89994 7.92643C0.926606 6.9531 1.23994 5.96643 2.59994 5.73977L4.72661 5.38643C5.07994 5.32643 5.50661 5.0131 5.66661 4.68643L6.83994 2.33977C7.47994 1.06643 8.51994 1.06643 9.15327 2.33977Z"
+                          stroke="#6C849D"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        ></path>
+                      </svg>
+                    </span>
+                    <div className="font-sans text-[12px] mq1100:text-[14px] leading-[20px] truncate"></div>
+                    <div className="text-center capitalize bg-[#305EFF17] overflow-hidden flex items-center justify-center min-w-[40px] rounded-md text-[#305EFF] text-[12px] font-[600] font-sans  max-w-[50px] max-h-[18px]">
+                      inbox
+                    </div>
+                  </div>
+                </div>
+                <p className="flex-[0.7] overflow-hidden whitespace-nowrap h-5 flex justify-start items-start font-sans text-[12px] mq1100:text-[14px] leading-[20px]">
+                  Undelivered Mail Returned to Sender-<p>No content</p>
+                </p>
+                <p className=" w-[70px] text-end font-sans text-[12px] mq1100:text-[14px] leading-[20px]">
+                  09:58 AM
+                </p>
+              </div>
             </div>
           </div>
         </div>
