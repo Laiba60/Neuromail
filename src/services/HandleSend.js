@@ -44,14 +44,17 @@ export const handleSend = async ({
     toast.error("At least one recipient is required.");
     return;
   }
-  const plainTextBody = body.replace(/<[^>]*>/g, "").trim();
+ 
 
-  if (plainTextBody === "") {
-    toast.error(
-      "Cannot send an empty email. Please write a message or attach a file."
-    );
-    return;
-  }
+  // const plainTextBody = body.replace(/<[^>]*>/g, "").trim();
+
+  // if (plainTextBody === "") {
+  //   toast.error(
+  //     "Cannot send an empty email. Please write a message or attach a file."
+  //   );
+  //   return;
+  // }
+ 
 
   const emailData = {
     body: body || "No content",
@@ -60,7 +63,7 @@ export const handleSend = async ({
     recipients,
     attachments,
   };
-
+  console.log("Sending email with data:", emailData);
   try {
     const response = await sendEmail({ token, mailboxId, emailData });
     toast.success("Email sent successfully");

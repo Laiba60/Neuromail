@@ -9,7 +9,9 @@ export const useEmailFormLogic = () => {
   const [body, setBody] = useState("");
   const [cc, setCc] = useState("");
   const [bcc, setBcc] = useState("");
-
+  const [ccVisible, setCcVisible] = useState(false);
+  const [bccVisible, setBccVisible] = useState(false);
+  
   const [recipients, setRecipients] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [activeRecipientType] = useState("to");
@@ -55,13 +57,14 @@ export const useEmailFormLogic = () => {
     setInputValue("");
   };
 
+
   const handleKeyDown = (e) => {
-    if (e.key === "Enter" && inputValue.trim()) {
+    if (e.key === " " && inputValue.trim()) {
       e.preventDefault();
       addRecipient(inputValue);
     }
   };
-
+  
   const removeRecipient = (index) => {
     setRecipients((prev) => prev.filter((_, i) => i !== index));
   };
@@ -80,6 +83,10 @@ export const useEmailFormLogic = () => {
     bcc,
     setBcc,
     recipients,
+    ccVisible,
+     setCcVisible,
+     bccVisible,
+       setBccVisible,
     setRecipients,
     inputValue,
     setInputValue,
